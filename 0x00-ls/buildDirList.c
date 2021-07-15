@@ -30,6 +30,7 @@ void buildFileList(dir_list_t *dirNode)
 	while ((read = readdir(dir)))
 	{
 		node = malloc(sizeof(file_list_t));
+		node->next = NULL;
 		if (flags.longPrint)
 		{
 			node->info = malloc(sizeof(struct stat));
