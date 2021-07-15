@@ -34,6 +34,7 @@ int printFilesFirst(dir_list_t *dirs)
 		if (files[j])
 		{
 			printf("%s", files[j]);
+			free(files[j]);
 			flag = 1;
 			if (j != i - 1)
 				putchar(' ');
