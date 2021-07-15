@@ -38,6 +38,8 @@ typedef struct file_list_s
  * @dirName: dirname
  * @fileList: linked list of files
  * @isFile: is it a file
+ * @printed: printed
+ * @numFiles: num files
  * @next: next dir in list
  * @prev: prev dir in list
  */
@@ -64,6 +66,7 @@ typedef struct dir_list_s
  * @time: print by time
  * @recursive: print recursively
  * @error: error
+ * @dirAndFilePrint: are we printing files and dirs?
  * Return: int
  */
 typedef struct ls_flags_s
