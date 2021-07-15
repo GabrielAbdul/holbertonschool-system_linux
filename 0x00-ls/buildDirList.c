@@ -28,6 +28,8 @@ void buildFileList(dir_list_t *dirNode)
 	}
 	while ((read = readdir(dir)))
 	{
+		if (!flags.hidden && read->d_name[0] == '.')
+			continue;
 		node = malloc(sizeof(file_list_t));
 		node->next = NULL, node->printed = 0;
 		if (flags.longPrint)
@@ -42,10 +44,7 @@ void buildFileList(dir_list_t *dirNode)
 		prev = node;
 		if (dirNode->fileList == NULL)
 			dirNode->fileList = node;
-		if (node->fileName[0] != '.' && !flags.hidden)
-			dirNode->numFiles++;
-		else if (flags.hidden && node->fileName[0] == '.')
-			dirNode->numFiles++;
+		dirNode->numFiles++;
 	}
 	free(buf), closedir(dir);
 }
