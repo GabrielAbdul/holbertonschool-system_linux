@@ -93,7 +93,7 @@ int listDirContents(char *dirName);
 void buildDirList(int ac, char **av, dir_list_t **node);
 void printList(dir_list_t *dirs);
 dir_list_t *dirListNodeCreate(char *dir);
-int printFilesFirst(dir_list_t *dirs);
+int *printFilesFirst(dir_list_t *dirs);
 
 /* strings */
 char *_strdup(char *src);

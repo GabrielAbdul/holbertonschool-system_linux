@@ -8,10 +8,11 @@
  * @dirs: head node of inputs
  * Return: numDirs
  */
-int printFilesFirst(dir_list_t *dirs)
+int *printFilesFirst(dir_list_t *dirs)
 {
 	char **files;
 	int i = 0, j = 0, flag = 0, directory = 0, file = 0, numDirs = 0;
+	int *both = malloc(sizeof(int) * 2);
 	dir_list_t *node = NULL;
 
 	files = malloc(sizeof(char *) * 100);
@@ -29,6 +30,8 @@ int printFilesFirst(dir_list_t *dirs)
 			numDirs++;
 		}
 	}
+	both[0] = numDirs;
+	both[1] = i;
 	for (j = 0; j < i; j++)
 	{
 		if (files[j])
@@ -45,7 +48,7 @@ int printFilesFirst(dir_list_t *dirs)
 	if (directory == true && file == true)
 		flags.dirAndFilePrint = true;
 	free(files);
-	return (numDirs);
+	return (both);
 }
 
 /**
@@ -54,17 +57,19 @@ int printFilesFirst(dir_list_t *dirs)
  */
 void printList(dir_list_t *dirs)
 {
-	int numDirs = 0, i = 0;
+	int *numDirsnumFiles, i = 0, files = 0, numDirs = 0;
 	file_list_t *file = NULL;
 	dir_list_t *node = NULL;
 
-	numDirs = printFilesFirst(dirs);
+	numDirsnumFiles = printFilesFirst(dirs);
+	numDirs = numDirsnumFiles[0], files = numDirsnumFiles[1];
 	if (flags.dirAndFilePrint)
 		putchar('\n');
 	for (node = dirs; node; node = node->next)
 	{
 		if (printDirHeader)
 			printf("%s:\n", node->dirName);
+		node->numFiles -= files;
 		for (file = node->fileList; file; file = file->next, i++)
 		{
 			if (flags.hidden)
@@ -75,7 +80,7 @@ void printList(dir_list_t *dirs)
 				if (_strlen(file->fileName) > 2)
 					printf("%s", file->fileName), file->printed = 1;
 			node->numFiles--;
-			if (node->numFiles >= 1 && numDirs >= 0 && !flags.newline)
+			if (file->printed && file->next && node->numFiles > 0)
 				putchar(' ');
 			if (flags.newline && file->printed == 1)
 				putchar('\n');
