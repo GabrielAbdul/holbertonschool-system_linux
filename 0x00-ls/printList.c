@@ -35,7 +35,7 @@ int printFilesFirst(dir_list_t *dirs)
 		{
 			printf("%s", files[j]);
 			flag = 1;
-			if (j != i)
+			if (j != i - 1)
 				putchar(' ');
 		}
 	}
@@ -53,7 +53,7 @@ int printFilesFirst(dir_list_t *dirs)
  */
 void printList(dir_list_t *dirs)
 {
-	int numDirs = 0;
+	int numDirs = 0, i = 0;
 	file_list_t *file = NULL;
 	dir_list_t *node = NULL;
 
@@ -64,15 +64,18 @@ void printList(dir_list_t *dirs)
 	{
 		if (printDirHeader)
 			printf("%s:\n", node->dirName);
-		for (file = node->fileList; file; file = file->next)
+		for (file = node->fileList; file; file = file->next, i++)
 		{
 			if (flags.hidden)
-				printf("%s%c", file->fileName, (flags.newline) ? '\n' : ' ');
+				printf("%s", file->fileName);
 			else if (!flags.hidden && file->fileName[0] != '.')
-				printf("%s%c", file->fileName, (flags.newline) ? '\n' : ' ');
+				printf("%s", file->fileName);
 			else if (flags.almostAll)
 				if (!file->fileName[0] == '.' && !_strlen(file->fileName) <= 2)
-					printf("%s%c", file->fileName, (flags.newline) ? '\n' : ' ');
+					printf("%s", file->fileName);
+			if (node->numFiles > 1 && numDirs >= 0)
+					putchar(' ');
+			node->numFiles--;
 		}
 		if (!node->isFile)
 			if ((node->next || !node->next) && !flags.newline)

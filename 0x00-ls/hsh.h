@@ -46,6 +46,7 @@ typedef struct dir_list_s
 	int errNum;
 	int isFile;
 	int printed;
+	int numFiles;
 	char *dirName;
 	file_list_t *fileList;
 	struct dir_list_s *next;

@@ -43,6 +43,7 @@ void buildFileList(dir_list_t *dirNode)
 		prev = node;
 		if (dirNode->fileList == NULL)
 			dirNode->fileList = node;
+		dirNode->numFiles++;
 	}
 	free(buf);
 	closedir(dir);
@@ -95,6 +96,7 @@ dir_list_t *dirListNodeCreate(char *dir)
 	node->dirName = dir;
 	node->errNum = 0;
 	node->isFile = 0;
+	node->numFiles = 0;
 	node->fileList = NULL;
 	node->prev = NULL;
 	node->next = NULL;
