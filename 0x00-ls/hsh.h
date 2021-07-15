@@ -27,6 +27,7 @@
 typedef struct file_list_s
 {
 	char *fileName;
+	int printed;
 	struct stat *info;
 	struct file_list_s *next;
 	struct file_list_s *prev;

@@ -30,15 +30,14 @@ void buildFileList(dir_list_t *dirNode)
 	while ((read = readdir(dir)))
 	{
 		node = malloc(sizeof(file_list_t));
-		node->next = NULL;
+		node->next = NULL, node->printed = 0;
 		if (flags.longPrint)
 		{
 			node->info = malloc(sizeof(struct stat));
 			sprintf(buf, "%s/%s", dirNode->dirName, read->d_name);
 			lstat(buf, node->info);
 		}
-		node->fileName = _strdup(read->d_name);
-		node->prev = prev;
+		node->fileName = _strdup(read->d_name), node->prev = prev;
 		if (prev)
 			node->prev->next = node;
 		prev = node;
@@ -46,8 +45,7 @@ void buildFileList(dir_list_t *dirNode)
 			dirNode->fileList = node;
 		dirNode->numFiles++;
 	}
-	free(buf);
-	closedir(dir);
+	free(buf), closedir(dir);
 }
 /**
  * buildDirList - builds linked list of directory nodes

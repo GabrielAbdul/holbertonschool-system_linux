@@ -13,6 +13,7 @@ void freeDirList(dir_list_t *head)
 	{
 		node = head;
 		head = head->next;
+
 		if (node->fileList)
 		{
 			while (node->fileList)
