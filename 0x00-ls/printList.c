@@ -80,7 +80,7 @@ void printList(dir_list_t *dirs)
 		if (!node->isFile)
 			if ((node->next || !node->next) && !flags.newline)
 				putchar('\n');
-		if (--numDirs > 0 && !node->isFile)
+		if (!node->isFile && --numDirs > 0)
 			putchar('\n');
 	}
 }
