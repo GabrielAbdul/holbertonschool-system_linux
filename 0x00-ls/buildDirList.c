@@ -115,7 +115,7 @@ int listDirContents(char *dirName)
 	struct stat buf;
 	struct dirent *read = NULL;
 	DIR *dir = opendir(dirName);
-	char delim = ' ';
+	int numFiles, i = 0;
 
 	if (!dir)
 	{
@@ -124,9 +124,20 @@ int listDirContents(char *dirName)
 	}
 	while ((read = readdir(dir)) != NULL)
 	{
-		lstat(read->d_name, &buf);
 		if (read->d_name[0] != '.')
-			printf("%s%c", read->d_name, delim);
+			numFiles++;
+	}
+	while ((read = readdir(dir)))
+	{
+		lstat(dirName, &buf);
+		if (read->d_name[0] != '.')
+			printf("%s", read->d_name);
+		if (i != numFiles - 1)
+			putchar(' ');
+		else
+			putchar('\n');
+
+		i++;
 	}
 	putchar('\n');
 	closedir(dir);

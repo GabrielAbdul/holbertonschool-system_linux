@@ -73,14 +73,14 @@ void printList(dir_list_t *dirs)
 			else if (flags.almostAll)
 				if (!file->fileName[0] == '.' && !_strlen(file->fileName) <= 2)
 					printf("%s", file->fileName);
-			if (node->numFiles > 1 && numDirs >= 0)
-					putchar(' ');
 			node->numFiles--;
+			if (node->numFiles >= 1 && numDirs >= 0)
+					putchar(' ');
 		}
 		if (!node->isFile)
 			if ((node->next || !node->next) && !flags.newline)
 				putchar('\n');
-		if (--numDirs > 0)
+		if (--numDirs > 0 && !node->isFile)
 			putchar('\n');
 	}
 }
