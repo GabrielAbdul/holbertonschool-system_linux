@@ -19,12 +19,11 @@ void buildFileList(dir_list_t *dirNode)
 		{
 			dirNode->errNum = ENOENT;
 			sprintf(buf, "./hls: cannot access %s: No such file or directory", dirNode->dirName);
-			fprintf(stderr, "%s\n", buf);
-			free(buf);
-			exit(2);
+			fprintf(stderr, "%s\n", buf), free(buf), exit(2);
 		}
-		dirNode->isFile = 1;
-		free(buf);
+		if (!(info.st_mode & S_IROTH))
+			fprintf(stderr, "./hls: cannot open directory '%s': Permission denied\n", dirNode->dirName), exit(2);
+		dirNode->isFile = 1, free(buf);
 		return;
 	}
 	while ((read = readdir(dir)))

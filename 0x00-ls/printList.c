@@ -79,7 +79,6 @@ void printList(dir_list_t *dirs)
 				putchar(' ');
 			if (flags.newline && file->printed == 1)
 				putchar('\n');
-			
 		}
 		if (!node->isFile)
 			if ((node->next || !node->next) && !flags.newline)
