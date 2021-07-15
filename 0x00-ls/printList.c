@@ -76,7 +76,7 @@ void printList(dir_list_t *dirs)
 			else if (!flags.hidden && file->fileName[0] != '.')
 				printf("%s", file->fileName), file->printed = 1;
 			else if (flags.almostAll)
-				if (_strlen(file->fileName) > 2)
+				if (_strlen(file->fileName) > 2 && file->fileName[1] != '.')
 					printf("%s", file->fileName), file->printed = 1;
 			node->numFiles--;
 			if (file->printed && file->next && node->numFiles > 0 && !flags.newline)
