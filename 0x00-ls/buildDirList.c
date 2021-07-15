@@ -18,7 +18,7 @@ void buildFileList(dir_list_t *dirNode)
 		if ((lstat(dirNode->dirName, &info) == -1))
 		{
 			dirNode->errNum = ENOENT;
-			sprintf(buf, "hls: cannot access %s: No such file or directory", dirNode->dirName);
+			sprintf(buf, "./hls: cannot access %s: No such file or directory", dirNode->dirName);
 			fprintf(stderr, "%s\n", buf);
 			free(buf);
 			exit(2);
