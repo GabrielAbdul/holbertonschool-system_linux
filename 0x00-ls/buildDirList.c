@@ -42,7 +42,10 @@ void buildFileList(dir_list_t *dirNode)
 		prev = node;
 		if (dirNode->fileList == NULL)
 			dirNode->fileList = node;
-		dirNode->numFiles++;
+		if (node->fileName[0] != '.' && !flags.hidden)
+			dirNode->numFiles++;
+		else if (flags.hidden && node->fileName[0] == '.')
+			dirNode->numFiles++;
 	}
 	free(buf), closedir(dir);
 }
