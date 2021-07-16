@@ -22,6 +22,7 @@
  * struct file_list_s - struct that defines linked list of files
  * @fileName: file name
  * @info: file info
+ * @last: last file in list?
  * @next: next file in list
  * @prev: prev file in list
  */
@@ -29,6 +30,7 @@ typedef struct file_list_s
 {
 	char *fileName;
 	int printed;
+	int last;
 	struct stat *info;
 	struct file_list_s *next;
 	struct file_list_s *prev;

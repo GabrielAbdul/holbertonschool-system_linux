@@ -16,10 +16,7 @@ void buildFileList(dir_list_t *dirNode)
 	if (!dir)
 	{
 		if ((lstat(dirNode->dirName, &info) == -1))
-		{
-			dirNode->errNum = ENOENT;
-			handleError(dirNode);
-		}
+			dirNode->errNum = ENOENT, handleError(dirNode);
 		else if (!(info.st_mode & S_IROTH))
 			handleError(dirNode);
 		dirNode->isFile = 1, free(buf);
@@ -29,7 +26,7 @@ void buildFileList(dir_list_t *dirNode)
 		while ((read = readdir(dir)))
 		{
 			node = malloc(sizeof(file_list_t));
-			node->next = NULL, node->printed = 0;
+			node->next = NULL, node->printed = 0, node->last = 0;
 			if (flags.longPrint)
 			{
 				node->info = malloc(sizeof(struct stat));
@@ -44,6 +41,7 @@ void buildFileList(dir_list_t *dirNode)
 				dirNode->fileList = node;
 			dirNode->numFiles++;
 		}
+		node->last = true;
 		free(buf), closedir(dir);
 	}
 }
