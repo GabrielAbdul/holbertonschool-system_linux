@@ -97,6 +97,7 @@ void buildDirList(int ac, char **av, dir_list_t **node);
 void printList(dir_list_t *dirs);
 dir_list_t *dirListNodeCreate(char *program, char *dir);
 int *printFilesFirst(dir_list_t *dirs);
+void handleError(dir_list_t *node);
 
 /* strings */
 char *_strdup(char *src);

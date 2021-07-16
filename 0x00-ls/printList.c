@@ -18,7 +18,7 @@ int *printFilesFirst(dir_list_t *dirs)
 	files = malloc(sizeof(char *) * 100);
 	for (node = dirs; node; node = node->next)
 	{
-		if (node->isFile == 1)
+		if (node->isFile == 1 && !node->errNum)
 		{
 			files[i] = _strdup(node->dirName);
 			i++;
@@ -67,6 +67,8 @@ void printList(dir_list_t *dirs)
 		putchar('\n');
 	for (node = dirs; node; node = node->next)
 	{
+		if (node->errNum == ENOENT || node->errNum == CANTOPEN)
+			continue;
 		if (printDirHeader)
 			printf("%s:\n", node->dirName);
 		for (file = node->fileList; file; file = file->next, i++)

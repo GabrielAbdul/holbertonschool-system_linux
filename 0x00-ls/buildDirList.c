@@ -18,43 +18,44 @@ void buildFileList(dir_list_t *dirNode)
 		if ((lstat(dirNode->dirName, &info) == -1))
 		{
 			dirNode->errNum = ENOENT;
-			sprintf(buf, "%s: cannot access %s: No such file or directory", dirNode->programName, dirNode->dirName);
-			fprintf(stderr, "%s\n", buf), free(buf), exit(2);
+			handleError(dirNode);
 		}
 		if (!(info.st_mode & S_IROTH))
-			fprintf(stderr, "%s: cannot open directory %s: Permission denied\n", dirNode->programName, dirNode->dirName), exit(2);
+			handleError(dirNode);
 		dirNode->isFile = 1, free(buf);
-		return;
 	}
-	while ((read = readdir(dir)))
+	if (dir)
 	{
-		if (!flags.hidden && read->d_name[0] == '.')
-			continue;
-		node = malloc(sizeof(file_list_t));
-		node->next = NULL, node->printed = 0;
-		if (flags.longPrint)
+		while ((read = readdir(dir)))
 		{
-			node->info = malloc(sizeof(struct stat));
-			sprintf(buf, "%s/%s", dirNode->dirName, read->d_name);
-			lstat(buf, node->info);
+			if (!flags.hidden && read->d_name[0] == '.')
+				continue;
+			node = malloc(sizeof(file_list_t));
+			node->next = NULL, node->printed = 0;
+			if (flags.longPrint)
+			{
+				node->info = malloc(sizeof(struct stat));
+				sprintf(buf, "%s/%s", dirNode->dirName, read->d_name);
+				lstat(buf, node->info);
+			}
+			node->fileName = _strdup(read->d_name), node->prev = prev;
+			if (prev)
+				node->prev->next = node;
+			prev = node;
+			if (dirNode->fileList == NULL)
+				dirNode->fileList = node;
+			dirNode->numFiles++;
 		}
-		node->fileName = _strdup(read->d_name), node->prev = prev;
-		if (prev)
-			node->prev->next = node;
-		prev = node;
-		if (dirNode->fileList == NULL)
-			dirNode->fileList = node;
-		dirNode->numFiles++;
+		free(buf), closedir(dir);
 	}
-	free(buf), closedir(dir);
 }
 /**
- * buildDirList - builds linked list of directory nodes
- * @ac: arg count
- * @av: args
- * @node: head node
- * Return: int
- */
+* buildDirList - builds linked list of directory nodes
+* @ac: arg count
+* @av: args
+* @node: head node
+* Return: int
+*/
 void buildDirList(int ac, char **av, dir_list_t **node)
 {
 	int i;
