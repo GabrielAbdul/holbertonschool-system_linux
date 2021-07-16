@@ -20,7 +20,7 @@ void buildFileList(dir_list_t *dirNode)
 			dirNode->errNum = ENOENT;
 			handleError(dirNode);
 		}
-		if (!(info.st_mode & S_IROTH))
+		else if (!(info.st_mode & S_IROTH))
 			handleError(dirNode);
 		dirNode->isFile = 1, free(buf);
 	}
