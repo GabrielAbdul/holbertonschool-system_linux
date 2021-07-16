@@ -36,7 +36,7 @@ void printLong(file_list_t *file)
 		if (time[++i] == '\n')
 			time[i] = '\0';
 
-	printf("%s ", time);
+	printf("%.12s ", time + 4);
 }
 /**
  * buildPermissionString - builds Permission string
