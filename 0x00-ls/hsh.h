@@ -25,6 +25,7 @@
  * @last: last file in list?
  * @next: next file in list
  * @prev: prev file in list
+ * @printed: printed
  */
 typedef struct file_list_s
 {
@@ -46,6 +47,7 @@ typedef struct file_list_s
  * @numFiles: num files
  * @next: next dir in list
  * @prev: prev dir in list
+ * @programName: av[0]
  */
 typedef struct dir_list_s
 {
@@ -72,6 +74,7 @@ typedef struct dir_list_s
  * @recursive: print recursively
  * @error: error
  * @dirAndFilePrint: are we printing files and dirs?
+ * @exit: exit code
  * Return: int
  */
 typedef struct ls_flags_s
