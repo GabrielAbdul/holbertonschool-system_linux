@@ -14,6 +14,8 @@
 #include <pwd.h>
 #include <errno.h>
 
+#define printDirHeader (!node->errNum && !node->isFile && ((node->next ||\
+					   (node->prev && node->next == NULL))))
 #define CANTOPEN 1
 #define true 1
 #define false 0

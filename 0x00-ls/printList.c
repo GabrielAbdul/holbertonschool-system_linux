@@ -1,8 +1,5 @@
 #include "hsh.h"
 
-#define printDirHeader (!node->errNum && !node->isFile && ((node->next ||\
-					   (node->prev && node->next == NULL))))
-
 /**
  * printFilesFirst - prints all the input files before directories
  * @dirs: head node of inputs
@@ -82,7 +79,7 @@ void printList(dir_list_t *dirs)
 				if (canPrint(file->fileName))
 					printf("%s", file->fileName), file->printed = 1;
 			node->numFiles--;
-			if (file->printed && file->next && node->numFiles > 0 && !flags.newline)
+			if ((file->printed && node->numFiles > 0 && !flags.newline) || (file->next && file->printed))
 				putchar(' ');
 			if (flags.newline && file->printed == 1)
 				putchar('\n');
