@@ -19,11 +19,7 @@ int *printFilesFirst(dir_list_t *dirs)
 	for (node = dirs; node; node = node->next)
 	{
 		if (node->isFile == 1 && !node->errNum)
-		{
-			files[i] = _strdup(node->dirName);
-			i++;
-			file = true;
-		}
+			files[i] = _strdup(node->dirName), i++, file = true;
 		if (node->isFile == 0)
 		{
 			directory = true;
@@ -40,7 +36,12 @@ int *printFilesFirst(dir_list_t *dirs)
 			free(files[j]);
 			flag = 1;
 			if (j != i - 1)
-				putchar(' ');
+			{
+				if (flags.newline)
+					putchar('\n');
+				else
+					putchar(' ');
+			}
 		}
 	}
 	if (flag == 1)
