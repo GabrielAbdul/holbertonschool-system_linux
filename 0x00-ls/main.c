@@ -1,6 +1,6 @@
 #include "hsh.h"
 
-ls_flags_t flags = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+ls_flags_t flags = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 /**
  * main - entry point of program

@@ -18,11 +18,11 @@ void buildFileList(dir_list_t *dirNode)
 		if ((lstat(dirNode->dirName, &info) == -1))
 		{
 			dirNode->errNum = ENOENT;
-			sprintf(buf, "./hls: cannot access %s: No such file or directory", dirNode->dirName);
+			sprintf(buf, "%s: cannot access %s: No such file or directory", dirNode->programName, dirNode->dirName);
 			fprintf(stderr, "%s\n", buf), free(buf), exit(2);
 		}
 		if (!(info.st_mode & S_IROTH))
-			fprintf(stderr, "./hls: cannot open directory '%s': Permission denied\n", dirNode->dirName), exit(2);
+			fprintf(stderr, "%s: cannot open directory '%s': Permission denied\n", dirNode->programName, dirNode->dirName), exit(2);
 		dirNode->isFile = 1, free(buf);
 		return;
 	}
@@ -62,14 +62,14 @@ void buildDirList(int ac, char **av, dir_list_t **node)
 
 	if (ac == 2 && av[1][0] == '-')
 	{
-		*node = dirListNodeCreate(".");
+		*node = dirListNodeCreate(av[0], ".");
 		return;
 	}
 	for (i = 1; i < ac; i++)
 	{
 		if (av[i][0] != '-')
 		{
-			dir = dirListNodeCreate(av[i]);
+			dir = dirListNodeCreate(av[0], av[i]);
 			if (!*node)
 				*node = dir;
 			dir->prev = prev;
@@ -85,7 +85,7 @@ void buildDirList(int ac, char **av, dir_list_t **node)
  * @dir: dirName
  * Return: node created
  */
-dir_list_t *dirListNodeCreate(char *dir)
+dir_list_t *dirListNodeCreate(char *program, char *dir)
 {
 	dir_list_t *node = NULL;
 
@@ -94,6 +94,7 @@ dir_list_t *dirListNodeCreate(char *dir)
 	if (!node)
 		return (NULL);
 	node->dirName = dir;
+	node->programName = program;
 	node->errNum = 0;
 	node->isFile = 0;
 	node->numFiles = 0;
@@ -117,11 +118,6 @@ int listDirContents(char *dirName)
 	DIR *dir = opendir(dirName);
 	int numFiles = 0, i = 0;
 
-	if (!dir)
-	{
-		fprintf(stderr, "hls: cannot access %s: No such file or directory\n", dirName);
-		return (-2);
-	}
 	while ((read = readdir(dir)) != NULL)
 	{
 		if (read->d_name[0] != '.')

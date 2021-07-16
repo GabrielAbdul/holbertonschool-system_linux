@@ -14,6 +14,7 @@
 #include <pwd.h>
 #include <errno.h>
 
+#define CANTOPEN 1
 #define true 1
 #define false 0
 
@@ -51,6 +52,7 @@ typedef struct dir_list_s
 	int printed;
 	int numFiles;
 	char *dirName;
+	char *programName;
 	file_list_t *fileList;
 	struct dir_list_s *next;
 	struct dir_list_s *prev;
@@ -72,6 +74,7 @@ typedef struct dir_list_s
  */
 typedef struct ls_flags_s
 {
+	int exit;
 	int newline;
 	int hidden;
 	int almostAll;
@@ -92,7 +95,7 @@ int findFlags(int ac, char **av);
 int listDirContents(char *dirName);
 void buildDirList(int ac, char **av, dir_list_t **node);
 void printList(dir_list_t *dirs);
-dir_list_t *dirListNodeCreate(char *dir);
+dir_list_t *dirListNodeCreate(char *program, char *dir);
 int *printFilesFirst(dir_list_t *dirs);
 
 /* strings */

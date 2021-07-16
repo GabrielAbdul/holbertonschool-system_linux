@@ -15,5 +15,5 @@ int _ls(int ac, char **av)
 	buildDirList(ac, av, &node);
 	printList(node);
 	freeDirList(node);
-	return (0);
+	return (flags.exit);
 }
