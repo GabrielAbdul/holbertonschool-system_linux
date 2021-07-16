@@ -1,10 +1,8 @@
 #include "hsh.h"
 
 /**
- * name - description
- * @var:
- * @var:
- * Return: int
+ * handleError - handles errors
+ * @node: node
  */
 void handleError(dir_list_t *node)
 {
