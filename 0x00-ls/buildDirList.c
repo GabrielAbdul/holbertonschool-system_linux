@@ -28,8 +28,6 @@ void buildFileList(dir_list_t *dirNode)
 	{
 		while ((read = readdir(dir)))
 		{
-			if (!flags.hidden && read->d_name[0] == '.')
-				continue;
 			node = malloc(sizeof(file_list_t));
 			node->next = NULL, node->printed = 0;
 			if (flags.longPrint)
@@ -84,6 +82,7 @@ void buildDirList(int ac, char **av, dir_list_t **node)
 /**
  * dirListNodeCreate - creats dir_list_t node
  * @dir: dirName
+ * @program: name of program
  * Return: node created
  */
 dir_list_t *dirListNodeCreate(char *program, char *dir)

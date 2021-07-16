@@ -76,10 +76,10 @@ void printList(dir_list_t *dirs)
 		{
 			if (flags.hidden)
 				printf("%s", file->fileName), file->printed = 1;
-			else if (!flags.hidden && file->fileName[0] != '.')
+			else if (!flags.hidden && file->fileName[0] != '.' && !flags.almostAll)
 				printf("%s", file->fileName), file->printed = 1;
-			else if (flags.almostAll)
-				if (_strlen(file->fileName) > 2 && file->fileName[1] != '.')
+			if (flags.almostAll)
+				if (canPrint(file->fileName))
 					printf("%s", file->fileName), file->printed = 1;
 			node->numFiles--;
 			if (file->printed && file->next && node->numFiles > 0 && !flags.newline)
@@ -95,7 +95,22 @@ void printList(dir_list_t *dirs)
 	}
 	free(numDirsnumFiles);
 }
-
+/**
+ * canPrint - determines if we can print for -A flag
+ * @file: file name
+ * Return: int
+ */
+int canPrint(char *file)
+{
+	if (file[0] == '.')
+	{
+		if (file[1] == '\0')
+			return (0);
+		if (file[1] == '.')
+			return (0);
+	}
+	return (1);
+}
 /**
  * buildPermissionString - builds permission string for long print
  * @st_mode: file mode used for bitmaskign
