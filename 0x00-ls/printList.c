@@ -70,26 +70,24 @@ void printList(dir_list_t *dirs)
 			printf("%s:\n", node->dirName);
 		for (file = node->fileList; file; file = file->next)
 			if (flags.almostAll)
-				if (!canPrint(file->fileName))
-					node->numFiles--;
+				(!canPrint(file->fileName)) ? node->numFiles-- : node->numFiles;
 		for (file = node->fileList; file; file = file->next, i++)
 		{
 			if (flags.hidden)
-				printf("%s", file->fileName), file->printed = 1;
+				(flags.longPrint) ? printLong(file), printf("%s", file->fileName), file->printed = 1 : printf("%s", file->fileName), file->printed = 1;
 			else if (!flags.hidden && file->fileName[0] != '.' && !flags.almostAll)
-				printf("%s", file->fileName), file->printed = 1;
+				(flags.longPrint) ? printLong(file), printf("%s", file->fileName), file->printed = 1 : printf("%s", file->fileName), file->printed = 1;
 			if (flags.almostAll)
 				if (canPrint(file->fileName))
-					printf("%s", file->fileName), file->printed = 1;
-			if (file->printed)
-				node->numFiles--;
-			if (node->numFiles > 0 && !flags.newline && file->printed)
+					(flags.longPrint) ? printLong(file), printf("%s", file->fileName), file->printed = 1 : printf("%s", file->fileName), file->printed = 1;
+			(file->printed) ? node->numFiles-- : node->numFiles;
+			if (node->numFiles > 0 && !flags.newline && file->printed && !flags.longPrint)
 				putchar(' ');
-			if (flags.newline && file->printed == 1)
+			if ((flags.newline && file->printed == 1) || (flags.longPrint && file->printed == 1))
 				putchar('\n');
 		}
 		if (!node->isFile)
-			if ((node->next || !node->next) && !flags.newline)
+			if ((node->next || !node->next) && !flags.newline && !flags.longPrint)
 				putchar('\n');
 		if (!node->isFile && --numDirs > 0)
 			putchar('\n');
@@ -111,27 +109,4 @@ int canPrint(char *file)
 			return (0);
 	}
 	return (1);
-}
-/**
- * buildPermissionString - builds permission string for long print
- * @st_mode: file mode used for bitmaskign
- * Return: string
- */
-char *buildPermissionString(mode_t st_mode)
-{
-	char *permString = malloc(sizeof(char) * 11);
-
-	permString[0] = (S_ISREG(st_mode)) ? '-' : 'd';
-	permString[1] = (S_IRUSR & st_mode) ? 'r' : '-';
-	permString[2] = (S_IWUSR & st_mode) ? 'w' : '-';
-	permString[3] = (S_IXUSR & st_mode) ? 'x' : '-';
-	permString[4] = (S_IRGRP & st_mode) ? 'r' : '-';
-	permString[5] = (S_IWGRP & st_mode) ? 'w' : '-';
-	permString[6] = (S_IXGRP & st_mode) ? 'x' : '-';
-	permString[7] = (S_IROTH & st_mode) ? 'r' : '-';
-	permString[8] = (S_IWOTH & st_mode) ? 'w' : '-';
-	permString[9] = (S_IXOTH & st_mode) ? 'x' : '-';
-	permString[10] = '\0';
-
-	return (permString);
 }

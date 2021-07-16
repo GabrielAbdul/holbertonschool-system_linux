@@ -21,6 +21,8 @@ void freeDirList(dir_list_t *head)
 				file = node->fileList;
 				node->fileList = node->fileList->next;
 				free(file->fileName);
+				if (flags.longPrint)
+					free(file->info);
 				free(file);
 			}
 		}
