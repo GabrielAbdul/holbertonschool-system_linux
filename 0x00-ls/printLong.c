@@ -10,6 +10,7 @@ void printLong(file_list_t *file)
 	struct passwd *usr;
 	char *time;
 	char *permstring = buildPermissionString(file->info->st_mode);
+	int i = 0;
 
 	/* print perm string */
 	printf("%s ", permstring);
@@ -30,7 +31,11 @@ void printLong(file_list_t *file)
 	printf("%d ", (int)file->info->st_size);
 
 	/* print time */
-	time = strtok(ctime(&(file->info->st_mtime)), "\n");
+	time = ctime(&(file->info->st_mtime));
+	while (time[i])
+		if (time[++i] == '\n')
+			time[i] = '\0';
+
 	printf("%s ", time);
 }
 /**
