@@ -22,7 +22,7 @@ void buildFileList(dir_list_t *dirNode)
 			fprintf(stderr, "%s\n", buf), free(buf), exit(2);
 		}
 		if (!(info.st_mode & S_IROTH))
-			fprintf(stderr, "%s: cannot open directory '%s': Permission denied\n", dirNode->programName, dirNode->dirName), exit(2);
+			fprintf(stderr, "%s: cannot open directory %s: Permission denied\n", dirNode->programName, dirNode->dirName), exit(2);
 		dirNode->isFile = 1, free(buf);
 		return;
 	}
