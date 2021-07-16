@@ -98,6 +98,7 @@ void printList(dir_list_t *dirs);
 dir_list_t *dirListNodeCreate(char *program, char *dir);
 int *printFilesFirst(dir_list_t *dirs);
 void handleError(dir_list_t *node);
+int canPrint(char *file);
 
 /* strings */
 char *_strdup(char *src);
