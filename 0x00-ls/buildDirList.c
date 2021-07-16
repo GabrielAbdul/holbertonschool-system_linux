@@ -136,11 +136,11 @@ int listDirContents(char *dirName)
 		{
 			printf("%s", read->d_name);
 			i++;
+			if (i == numFiles)
+				putchar('\n');
+			else
+				putchar(' ');
 		}
-		if (i == numFiles)
-			putchar('\n');
-		else
-			putchar(' ');
 	}
 	closedir(dir);
 	return (0);
