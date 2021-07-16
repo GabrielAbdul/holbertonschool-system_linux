@@ -82,7 +82,7 @@ void printList(dir_list_t *dirs)
 				if (canPrint(file->fileName))
 					printf("%s", file->fileName), file->printed = 1;
 			node->numFiles--;
-			if (file->printed && node->numFiles != 1 && !flags.newline && file->next)
+			if (file->printed && file->next && node->numFiles > 0 && !flags.newline)
 				putchar(' ');
 			if (flags.newline && file->printed == 1)
 				putchar('\n');
