@@ -10,7 +10,7 @@ void handleError(dir_list_t *node)
 
 	if (node->errNum == ENOENT)
 	{
-		sprintf(buf, "%s: cannot access %s: No such file or directory \n", node->programName, node->dirName);
+		sprintf(buf, "%s: cannot access %s: No such file or directory\n", node->programName, node->dirName);
 		fprintf(stderr, "%s", buf);
 	}
 	else
