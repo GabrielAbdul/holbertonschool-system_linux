@@ -46,8 +46,8 @@ void printLong(dir_list_t *dir, file_list_t *file)
 	if (S_ISLNK(file->info->st_mode))
 	{
 		i = 0;
-		while (i < sizeof(path))
-			path[i++] = '\0'
+		while (i < (int)sizeof(path))
+			path[i++] = '\0';
 		sprintf(path, "%s/%s", dir->dirName, file->fileName);
 		readlink(path, buf, 1024);
 		printf(" -> %s", buf);
