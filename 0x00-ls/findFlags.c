@@ -39,7 +39,7 @@ int findFlags(int ac, char **av)
 				default:
 					flags.error = 2;
 					fprintf(stderr, "hls: invalid option == '%c'\n", av[i][j]);
-					fprintf(stderr, "Try 'hls --help' for more information.\n");
+					fprintf(stderr, "Try 'hls --help' for more information.%c", '\n');
 					break;
 				}
 	}
