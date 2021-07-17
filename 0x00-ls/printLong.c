@@ -9,10 +9,10 @@ void printLong(dir_list_t *dir, file_list_t *file)
 {
 	struct group *grp;
 	struct passwd *usr;
-	char *time;
+	char *time = NULL;
 	char *permstring = buildPermissionString(file->info->st_mode);
 	int i = 0;
-	char buf[1024], path[1024];
+	char buf[1024] = "", path[1024] = "";
 
 	printf("%s ", permstring);
 	free(permstring);
