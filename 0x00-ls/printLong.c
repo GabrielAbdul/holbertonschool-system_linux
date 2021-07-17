@@ -3,6 +3,7 @@
 /**
  * printLong - prints long format
  * @file: file to print info about
+ * @dir: dirnode
  */
 void printLong(dir_list_t *dir, file_list_t *file)
 {
