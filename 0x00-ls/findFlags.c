@@ -30,7 +30,7 @@ int findFlags(int ac, char **av)
 				case ('r'):
 					flags.reverse = true;
 					break;
-				case ('s'):
+				case ('S'):
 					flags.size = true;
 					break;
 				case ('R'):
