@@ -13,36 +13,20 @@ void printLong(dir_list_t *dir, file_list_t *file)
 	int i = 0;
 	char buf[1024], path[1024];
 
-	/* print perm string */
 	printf("%s ", permstring);
 	free(permstring);
-
-	/* print hard links */
 	printf("%d ", (int)file->info->st_nlink);
-
-	/* print user */
 	usr = getpwuid(file->info->st_uid);
 	(usr) ? printf("%s ", usr->pw_name) : printf("%d ", (int)file->info->st_uid);
-
-	/* print group */
 	grp = getgrgid(file->info->st_gid);
 	(grp) ? printf("%s ", grp->gr_name) : printf("%d ", (int)file->info->st_gid);
-
-	/* print size */
 	printf("%d ", (int)file->info->st_size);
-
-	/* print time */
 	time = ctime(&(file->info->st_mtime));
 	while (time[i])
 		if (time[++i] == '\n')
 			time[i] = '\0';
-
 	printf("%.12s ", time + 4);
-
-	/* print file name */
 	printf("%s", file->fileName);
-
-	/* if sym link print */
 	if (S_ISLNK(file->info->st_mode))
 	{
 		i = 0;
