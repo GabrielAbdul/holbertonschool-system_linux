@@ -74,12 +74,12 @@ void printList(dir_list_t *dirs)
 		for (file = node->fileList; file; file = file->next, i++)
 		{
 			if (flags.hidden)
-				(flags.longPrint) ? printLong(file), printf("%s", file->fileName), file->printed = 1 : printf("%s", file->fileName), file->printed = 1;
+				(flags.longPrint) ? printLong(node, file), file->printed = 1 : printf("%s", file->fileName), file->printed = 1;
 			else if (!flags.hidden && file->fileName[0] != '.' && !flags.almostAll)
-				(flags.longPrint) ? printLong(file), printf("%s", file->fileName), file->printed = 1 : printf("%s", file->fileName), file->printed = 1;
-			if (flags.almostAll)
+				(flags.longPrint) ? printLong(node, file), file->printed = 1 : printf("%s", file->fileName), file->printed = 1;
+			else if (flags.almostAll)
 				if (canPrint(file->fileName))
-					(flags.longPrint) ? printLong(file), printf("%s", file->fileName), file->printed = 1 : printf("%s", file->fileName), file->printed = 1;
+					(flags.longPrint) ? printLong(node, file), file->printed = 1 : printf("%s", file->fileName), file->printed = 1;
 			(file->printed) ? node->numFiles-- : node->numFiles;
 			if (node->numFiles > 0 && !flags.newline && file->printed && !flags.longPrint)
 				putchar(' ');

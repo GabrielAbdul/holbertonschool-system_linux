@@ -106,7 +106,7 @@ dir_list_t *dirListNodeCreate(char *program, char *dir);
 int *printFilesFirst(dir_list_t *dirs);
 void handleError(dir_list_t *node);
 int canPrint(char *file);
-void printLong(file_list_t *file);
+void printLong(dir_list_t *node, file_list_t *file);
 
 /* strings */
 char *_strdup(char *src);
