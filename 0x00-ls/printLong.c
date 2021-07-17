@@ -4,13 +4,14 @@
  * printLong - prints long format
  * @file: file to print info about
  */
-void printLong(file_list_t *file)
+void printLong(dir_list_t *dir, file_list_t *file)
 {
 	struct group *grp;
 	struct passwd *usr;
 	char *time;
 	char *permstring = buildPermissionString(file->info->st_mode);
 	int i = 0;
+	char buf[1024], path[1024];
 
 	/* print perm string */
 	printf("%s ", permstring);
@@ -37,6 +38,18 @@ void printLong(file_list_t *file)
 			time[i] = '\0';
 
 	printf("%.12s ", time + 4);
+
+	/* print file name */
+	printf("%s", file->fileName);
+
+	/* if sym link print */
+	if (S_ISLNK(file->info->st_mode))
+	{
+		sprintf(path, "%s/%s%c", dir->dirName, file->fileName, '\0');
+		readlink(path, buf, 1024);
+		printf(" -> %s", buf);
+	}
+	
 }
 /**
  * buildPermissionString - builds Permission string
