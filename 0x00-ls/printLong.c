@@ -45,11 +45,13 @@ void printLong(dir_list_t *dir, file_list_t *file)
 	/* if sym link print */
 	if (S_ISLNK(file->info->st_mode))
 	{
-		sprintf(path, "%s/%s%c", dir->dirName, file->fileName, '\0');
+		i = 0;
+		while (i < sizeof(path))
+			path[i++] = '\0'
+		sprintf(path, "%s/%s", dir->dirName, file->fileName);
 		readlink(path, buf, 1024);
 		printf(" -> %s", buf);
 	}
-	
 }
 /**
  * buildPermissionString - builds Permission string
