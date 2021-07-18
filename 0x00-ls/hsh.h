@@ -108,6 +108,12 @@ void handleError(dir_list_t *node);
 int canPrint(char *file);
 void printLong(dir_list_t *node, file_list_t *file);
 
+/* advanced */
+void sortList(dir_list_t **node);
+void reverseList(dir_list_t **head);
+
+
+
 /* strings */
 char *_strdup(char *src);
 size_t _strlen(char *s);

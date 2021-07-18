@@ -13,6 +13,7 @@ int _ls(int ac, char **av)
 	if (findFlags(ac, av) == 2)
 		return (flags.error);
 	buildDirList(ac, av, &node);
+	sortList(&node);
 	printList(node);
 	freeDirList(node);
 	return (flags.exit);
