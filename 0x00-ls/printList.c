@@ -83,7 +83,7 @@ void printList(dir_list_t *dirs)
 			(file->printed) ? node->numFiles-- : node->numFiles;
 			if (node->numFiles > 0 && !flags.newline && file->printed && !flags.longPrint)
 				putchar(' ');
-			if ((flags.newline && file->printed == 1) || (flags.longPrint && file->printed == 1))
+			if ((flags.newline || flags.longPrint) && file->printed == 1)
 				putchar('\n');
 		}
 		if (!node->isFile)
