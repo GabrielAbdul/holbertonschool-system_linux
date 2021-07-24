@@ -9,12 +9,13 @@ void race_state(int *id, size_t size);
  * struct car_s - represents a car in a race
  * @id: id
  * @laps: # of laps
+ * @next: next car in list
  */
 typedef struct car_s
 {
-    int id;
-    int laps;
-    struct car_s *next;
+	int id;
+	int laps;
+	struct car_s *next;
 } car_t;
 
 int newCar(car_t *cars, int id);
