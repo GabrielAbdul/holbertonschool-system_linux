@@ -8,7 +8,7 @@
 
 #define true 1
 #define false 0
-#define READ_SIZE 1024
+#define READ_SIZE 2048
 
 /**
  * struct fd_s - struct that defines a fd node
