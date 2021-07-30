@@ -19,11 +19,12 @@ char *__getline(fd_t *file)
 		file->bytes = 0;
 		file->bufsize = 0;
 		if (buf[0] == '\0')
+		{
+			free(buf);
 			return (NULL);
+		}
 		return (buf);
 	}
-	if (buflen == 0)
-		return (NULL);
 	_memcpy(buf, file->buf, buflen);
 	if (buf[buflen - 1] == '\n')
 		nullByte = true;
@@ -86,7 +87,7 @@ int lineLen(char *line)
 		return (-1);
 
 	for (i = 0; line[i]; i++)
-		if (line[i] == '\n' && _strlen(line) > 1)
+		if (line[i] == '\n' && _strlen(line) >= 1)
 			return (i + 1);
 	return (0);
 }
