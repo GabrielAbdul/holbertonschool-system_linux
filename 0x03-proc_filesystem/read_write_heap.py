@@ -16,13 +16,14 @@ def findHeapAddress(pid):
             for line in file:
                 if 'heap' in line:
                     address = line.split(' ')[0]
+                    print("Address of heap:", address)
+                    return address
     except Exception as e:
-        print(e)
-    print("Address of heap:", address)
-    return address
+        print(e), exit(1)
 
 def replaceStringInHeap(pid, search, replace, address):
     '''seeks for search string in mem file of pid, and replaces it'''
+    print("searching for:", search)
     return
 
 if __name__ == '__main__':
