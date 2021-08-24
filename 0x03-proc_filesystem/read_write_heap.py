@@ -26,9 +26,8 @@ def findHeapAddress(pid):
 
 def replaceStringInHeap(pid, search, replace, addr):
     '''seeks for search string in mem file of pid, and replaces it'''
-    if replace == '':
-        exit(-1)
-    print("searching for:", search)
+    print("searching for:", search, "Trying to replace:", replace)
+    replace = "How you do that?" if replace == "" else replace
     mem = '/proc/{}/mem'.format(pid)
     start, stop = int(addr.split('-')[0], 16), int(addr.split('-')[1], 16)
     print('Heap found!', 'Searching for string!')
