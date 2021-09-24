@@ -7,11 +7,9 @@
 int handle_sigaction(void)
 {
 	struct sigaction sa;
-	struct sigaction oa;
 
 	sa.sa_handler = handle_SIGINT;
-	oa.sa_handler = signal(SIGINT, SIG_DFL);
-	return (sigaction(SIGINT, &sa, &oa));
+	return (sigaction(SIGINT, &sa, NULL));
 }
 
 /**
