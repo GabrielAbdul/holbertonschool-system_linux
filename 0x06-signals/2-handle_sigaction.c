@@ -19,4 +19,5 @@ int handle_sigaction(void)
 void handle_SIGINT(int signum)
 {
 	printf("Gotcha! [%d]\n", signum);
+	fflush(stdout);
 }

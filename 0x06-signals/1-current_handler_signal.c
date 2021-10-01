@@ -10,5 +10,5 @@ void (*current_handler_signal(void))(int)
 
 	handler = signal(SIGINT, NULL);
 
-	(signal(SIGINT, handler) == SIG_ERR) ? NULL : hanlder;
+	return ((signal(SIGINT, handler) == SIG_ERR) ? NULL : handler);
 }
