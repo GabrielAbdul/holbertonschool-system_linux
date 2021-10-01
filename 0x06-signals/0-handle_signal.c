@@ -8,7 +8,8 @@ int handle_signal(void)
 {
 	int signum = 2;
 
-	signal(SIGINT, handle_SIGINT);
+	if (signal(SIGINT, handle_SIGINT) == -1)
+		return (EXIT_FAILURE);
 	return (signum);
 
 }
