@@ -6,10 +6,7 @@
  */
 int handle_signal(void)
 {
-	int signum = 2;
-
-	return ((signal(SIGINT, handle_SIGINT) == SIG_ERR) ? EXIT_FAILURE : signum);
-
+	return ((signal(SIGINT, handle_SIGINT) == SIG_ERR) ? -1 : 0);
 }
 
 /**
