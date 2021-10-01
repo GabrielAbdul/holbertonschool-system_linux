@@ -1,8 +1,8 @@
 #include "signals.h"
 
 /**
- * handle_sigaction -
- * Return: 
+ * handle_sigaction - sets a handler for sigint
+ * Return: sigaction return
  */
 int handle_sigaction(void)
 {
