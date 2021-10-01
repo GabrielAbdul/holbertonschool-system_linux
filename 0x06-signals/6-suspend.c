@@ -7,7 +7,7 @@
 void handle_SIGINT(int signum)
 {
 		signum = 2;
-		printf("Gotcha! [%d]\n", signum);
+		printf("Caught %d\n", signum);
 		fflush(stdout);
 }
 
