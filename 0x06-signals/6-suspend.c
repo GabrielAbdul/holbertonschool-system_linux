@@ -39,6 +39,7 @@ int main(void)
 	/* suspend with empty mask, (any signal can wake up program) */
 	sigsuspend(&myset);
 	printf("Signal received\n");
+	fflush(stdout);
 
 	return (0);
 }
