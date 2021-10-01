@@ -6,9 +6,9 @@
  */
 void handle_SIGINT(int signum)
 {
-        signum = 2;
-        printf("Gotcha! [%d]\n", signum);
-        fflush(stdout);
+		signum = 2;
+		printf("Gotcha! [%d]\n", signum);
+		fflush(stdout);
 }
 
 /**
@@ -17,9 +17,9 @@ void handle_SIGINT(int signum)
  */
 int handle_signal(void)
 {
-        if (signal(SIGINT, handle_SIGINT) != 0)
-                return (-1);
-        return (0);
+	if (signal(SIGINT, handle_SIGINT) != 0)
+		return (-1);
+	return (0);
 }
 
 /**
@@ -28,17 +28,17 @@ int handle_signal(void)
  */
 int main(void)
 {
-        sigset_t myset;
+	sigset_t myset;
 
-        /* initialize empty signal mask */
-        sigemptyset(&myset);
+	/* initialize empty signal mask */
+	sigemptyset(&myset);
 
-        if (handle_signal() == -1)
-                return (-1);
+	if (handle_signal() == -1)
+		return (-1);
 
-        /* suspend with empty mask, (any signal can wake up program) */
-        sigsuspend(&myset);
-        printf("Signal received\n");
+	/* suspend with empty mask, (any signal can wake up program) */
+	sigsuspend(&myset);
+	printf("Signal received\n");
 
-        return (0);
+	return (0);
 }
