@@ -1,3 +1,5 @@
+#include "readelf.h"
+
 /**
  * main - displays the information contained in the ELF sections' headers
  * @argc: arg count
