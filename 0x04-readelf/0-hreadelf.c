@@ -14,7 +14,7 @@ int main(int argc, char **argv, char **env)
 	(void)argc;
 
 	args[3] = argv[1];
-    
+
 	if (execve("/usr/bin/readelf", args, env) == -1)
 	{
 		perror("execv");
