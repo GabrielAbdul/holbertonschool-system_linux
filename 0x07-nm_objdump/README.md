@@ -1,5 +1,7 @@
 # 0x07. C - ELF: nm/objdump
 
+[NOTE] This project is not complete.
+
 ## Resources:books:
 Read or watch:
 * [ELF Wikipedia](https://intranet.hbtn.io/rltoken/EGQXAYu-f5KmrPgfdOdCSA)
