@@ -26,7 +26,7 @@ void print_python_bytes(PyObject *p)
 	/* printing info */
 	printf("size: %li\n  ", size);
 	printf("trying string: %s\n  ", bytes_as_string);
-	printf("first %ld bytes", num_bytes);
+	printf("first %ld bytes:", num_bytes);
 
 
 	for (i = 0; i < num_bytes; i++)
