@@ -23,6 +23,7 @@ void print_python_bytes(PyObject *p)
 	size = PyBytes_Size(p);
 	bytes_as_string = PyBytes_AsString(p);
 	num_bytes = size > 9 ? 10 : size + 1;
+	
 	/* printing info */
 	printf("size: %li\n  ", size);
 	printf("trying string: %s\n  ", bytes_as_string);
@@ -41,6 +42,7 @@ void print_python_bytes(PyObject *p)
 void print_python_list(PyObject *p)
 {
 	ssize_t i;
+	PyObject *obj;
 
 	/* prints basic info about a python list */
 	printf("[*] Python list info\n"
@@ -50,5 +52,10 @@ void print_python_list(PyObject *p)
 
 	/* print some basic info about each element of the input list p */
 	for (i = 0; i < Py_SIZE(p); i++)
+	{
+		obj = ((PyListObject *)(p))->ob_item[i];
 		printf("Element %li: %s\n", i, Py_TYPE((PyList_GetItem(p, i)))->tp_name);
+		if (PyBytes_Check(obj))
+			print_python_bytes(obj);
+	}
 }
