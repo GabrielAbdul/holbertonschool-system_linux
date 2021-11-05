@@ -28,7 +28,7 @@ void print_python_float(PyObject *p)
  */
 void print_python_bytes(PyObject *p)
 {
-	Py_ssize_t size, i, num_bytes;
+	Py_ssize_t size, num_bytes, i;
 	char *bytes_as_string;
 
 	/* printing detailing description */
@@ -42,7 +42,7 @@ void print_python_bytes(PyObject *p)
 	}
 
 	/* extracting information from python object */
-	size = (((PyVarObject *)(p))->ob_size;
+	size = ((PyVarObject *)(p))->ob_size;
 	bytes_as_string = ((PyBytesObject *)(p))->ob_sval;
 	num_bytes = size > 9 ? 10 : size + 1;
 
