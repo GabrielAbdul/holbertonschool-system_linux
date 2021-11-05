@@ -20,7 +20,7 @@ void print_python_string(PyObject *p)
 
 	if (PyUnicode_IS_COMPACT_ASCII(p))
 		type = "compact ascii";
-	else if (PyUnicode_IS_COMPACT_ASCII(p))
+	else if (PyUnicode_IS_COMPACT(p))
 		type = "compact unicode object";
 	else if (PyUnicode_KIND(p) == PyUnicode_WCHAR_KIND)
 		type = "legacy string, not ready";
