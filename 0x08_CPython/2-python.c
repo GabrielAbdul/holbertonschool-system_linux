@@ -30,7 +30,7 @@ void print_python_bytes(PyObject *p)
 
 
 	for (i = 0; i < size - 1 && i < 10; i++)
-		printf(" %02x", bytes_as_string[i]);
+		printf(" %02hhx", bytes_as_string[i]);
 	putchar('\n');
 }
 
