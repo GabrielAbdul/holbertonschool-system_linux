@@ -82,7 +82,7 @@ void print_python_list(PyObject *p)
 	for (i = 0; i < ((PyVarObject *)p)->ob_size; i++)
 	{
 		obj = ((PyListObject *)(p))->ob_item[i];
-		printf("Element %li: %s\n", i, Py_TYPE((PyList_GetItem(p, i)))->tp_name);
+		printf("Element %li: %s\n", i, obj->ob_type->tp_name);
 		if (PyBytes_Check(obj))
 			print_python_bytes(obj);
 		else if (PyFloat_Check(obj))
