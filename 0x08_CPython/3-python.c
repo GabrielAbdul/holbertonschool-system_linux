@@ -43,7 +43,7 @@ void print_python_bytes(PyObject *p)
 
 	/* extracting information from python object */
 	size = PyBytes_Size(p);
-	bytes_as_string = PyBytes_AsString(p);
+	bytes_as_string = ((PyBytesObject *)(p))->ob_sval;
 	num_bytes = size > 9 ? 10 : size + 1;
 
 	/* printing info */
