@@ -9,7 +9,8 @@
  */
 int main(int argc, char **argv, char **env)
 {
-	char *args[] = {"/usr/bin/nm", "-p", "", NULL};
+	char *s = malloc(sizeof(100));
+	char *args[] = {"./hnm", "-p", "", NULL};
 
 	(void)argc;
 
@@ -17,7 +18,7 @@ int main(int argc, char **argv, char **env)
 
 	if (execve("/usr/bin/nm", args, env) == -1)
 	{
-		perror("execv");
+		perror("Error: ");
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
