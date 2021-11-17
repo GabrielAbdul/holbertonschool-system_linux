@@ -9,7 +9,6 @@
  */
 int main(int argc, char **argv, char **env)
 {
-	char *s = malloc(sizeof(100));
 	char *args[] = {"./hnm", "-p", "", NULL};
 
 	(void)argc;
