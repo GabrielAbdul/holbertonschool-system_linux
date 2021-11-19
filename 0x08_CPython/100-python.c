@@ -12,11 +12,11 @@ void print_python_int(PyObject *p)
 
 	if (!p || !PyLong_Check(p))
 	{
-		printf("Invalid Int Object\n");
+		printf("Invalid Int Object");
 		exit(-1);
 	}
 	size = ((PyVarObject *)(p))->ob_size;
-	num = ((PyLongObject *)(p))->ob_num;
+	num = ((PyLongObject *)(p))->ob_digit;
 	/* ensure overflow doesn't occur */
 	if (abs(size) > 3 || (abs(size) == 3 && num[2] > 15))
 	{
