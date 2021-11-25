@@ -36,7 +36,9 @@ int main(int ac, char **av, char **envp)
             wait(&status);
             ptrace(PT_GETREGS, pid, NULL, &regs);
             if (count % 2 == 0)
-                printf("%s\n", syscalls_64_g[regs.orig_rax].name);
+                printf("%s", syscalls_64_g[regs.orig_rax].name);
+            else if (count % 2 > 0)
+                putchar('\n');
             fflush(stdout);
         }
     }
