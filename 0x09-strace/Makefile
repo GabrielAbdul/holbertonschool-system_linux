@@ -7,6 +7,8 @@ strace_0: trace_command.c
 strace_1: trace_command_name.c
 	$(CC) $(CFLAGS) trace_command_name.c -o strace_1
 
+strace_2: trace_command_return_value.c
+	$(CC) $(CFLAGS) trace_command_return_value.c -o strace_2
 clean:
 		$(RM) *~ $(NAME)
 
