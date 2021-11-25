@@ -10,6 +10,7 @@
 #include <sys/wait.h>
 #include <sys/user.h>
 
+#define EXECVE_NAME "execve"
 #define EXECVE_SYS_NUM 59
 /* Normally, MAX_PARAMS is always 6 */
 #define MAX_PARAMS 6
