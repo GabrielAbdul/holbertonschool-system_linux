@@ -22,7 +22,7 @@ int main(int ac, char **av, char **envp)
     pid = fork();
     if (pid == 0)
     {
-        printf("%s\n", EXECVE_NAME);
+        printf("%s", EXECVE_NAME);
         ptrace(PTRACE_TRACEME, pid, NULL, NULL);
         execve(av[1], av + 1, envp);
     }
