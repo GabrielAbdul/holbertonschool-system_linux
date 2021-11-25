@@ -6,7 +6,11 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <sys/ptrace.h>
+#include <sys/wait.h>
+#include <sys/user.h>
 
+#define EXECVE_SYS_NUM 59
 /* Normally, MAX_PARAMS is always 6 */
 #define MAX_PARAMS 6
 
