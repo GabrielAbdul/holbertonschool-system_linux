@@ -7,8 +7,6 @@
  */
 void *thread_entry(void *arg)
 {
-	int *id = arg;
-
-	printf("%d\n", *id);
+	printf("%s\n", (char *) arg);
 	pthread_exit(NULL);
 }
