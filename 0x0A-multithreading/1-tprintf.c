@@ -2,6 +2,7 @@
 
 /**
  * tprintf - use printf to print formatted string
+ * @format: string to print
  * Return: 0
  */
 int tprintf(char const *format, ...)
