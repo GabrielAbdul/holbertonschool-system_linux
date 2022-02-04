@@ -2,6 +2,7 @@
 #define _SOCKETS_H_
 
 #define PORT 12345
+#define BYTES_READ 2048
 
 #include <string.h>
 #include <errno.h>
