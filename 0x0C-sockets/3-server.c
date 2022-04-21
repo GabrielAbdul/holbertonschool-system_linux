@@ -26,7 +26,7 @@ int recieve_message_from_socket(int sockfd)
 	if (bytes > 0)
 	{
 		message[bytes] = 0;
-		printf("Message recieved: \"%s\"\n", message);
+		printf("Message received: \"%s\"\n", message);
 	}
 
 	close(sockfd);
