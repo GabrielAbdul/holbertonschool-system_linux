@@ -7,8 +7,8 @@
  */
 int print_error_and_exit(char *str)
 {
-    printf("%s: %s", str, strerror(errno));
-    return (EXIT_FAILURE);
+	printf("%s: %s", str, strerror(errno));
+	return (EXIT_FAILURE);
 }
 
 /**
@@ -19,18 +19,19 @@ int print_error_and_exit(char *str)
  */
 int accept_socket(int socket)
 {
-    int new_socket;
-    struct sockaddr_in address;
-    socklen_t address_len;
+	int new_socket;
+	struct sockaddr_in address;
+	socklen_t address_len;
 
-    address_len = sizeof(address);
-    new_socket = accept(socket, (struct sockaddr *)&address, (socklen_t *)&address_len);
+	address_len = sizeof(address);
+	new_socket = accept(socket,
+				(struct sockaddr *)&address, (socklen_t *)&address_len);
 
-    if (new_socket == -1)
-        print_error_and_exit("accept");
+	if (new_socket == -1)
+		print_error_and_exit("accept");
 
-    printf("Client connected: %s\n", inet_ntoa(address.sin_addr));
-    return (EXIT_SUCCESS);
+	printf("Client connected: %s\n", inet_ntoa(address.sin_addr));
+	return (EXIT_SUCCESS);
 
 
 }
@@ -41,15 +42,15 @@ int accept_socket(int socket)
  */
 int bind_socket(int socket)
 {
-    int bin;
-    struct sockaddr_in addr;
+	int bin;
+	struct sockaddr_in addr;
 
-    addr.sin_family = AF_INET;
-    addr.sin_addr.s_addr = htonl(INADDR_ANY);
-    addr.sin_port = htons(PORT);
-    bin = bind(socket, (struct sockaddr *)&addr, sizeof(addr));
+	addr.sin_family = AF_INET;
+	addr.sin_addr.s_addr = htonl(INADDR_ANY);
+	addr.sin_port = htons(PORT);
+	bin = bind(socket, (struct sockaddr *)&addr, sizeof(addr));
 
-    return (bin);
+	return (bin);
 }
 
 /**
@@ -59,22 +60,22 @@ int bind_socket(int socket)
  */
 int main(void)
 {
-    int socket_fd;
+	int socket_fd;
 
-    socket_fd = socket(AF_INET, SOCK_STREAM, 0);
+	socket_fd = socket(AF_INET, SOCK_STREAM, 0);
 
-    if (socket_fd == -1)
-        print_error_and_exit("socket");
+	if (socket_fd == -1)
+		print_error_and_exit("socket");
 
-    if (bind_socket(socket_fd) == -1)
-        print_error_and_exit("bind");
+	if (bind_socket(socket_fd) == -1)
+		print_error_and_exit("bind");
 
-    if (listen(socket_fd, 1) == -1)
-        print_error_and_exit("listen");
+	if (listen(socket_fd, 1) == -1)
+		print_error_and_exit("listen");
 
-    accept_socket(socket_fd);
+	accept_socket(socket_fd);
 
-    printf("Server listening on port %d\n", PORT);
-    pause();
-    return (EXIT_SUCCESS);
+	printf("Server listening on port %d\n", PORT);
+	pause();
+	return (EXIT_SUCCESS);
 }
