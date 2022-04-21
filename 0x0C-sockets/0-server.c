@@ -1,9 +1,15 @@
 #include "sockets.h"
 
+
+/**
+ * print_error_and_exit - prints error and exits
+ * @str: program of error to print
+ * Return: int
+ */
 int print_error_and_exit(char *str)
 {
-    printf("%s: %s", str, strerror(errno));
-    return (EXIT_FAILURE);
+	printf("%s: %s", str, strerror(errno));
+	return (EXIT_FAILURE);
 }
 
 /**
@@ -13,15 +19,15 @@ int print_error_and_exit(char *str)
  */
 int bind_socket(int socket)
 {
-    int bin;
-    struct sockaddr_in addr;
+	int bin;
+	struct sockaddr_in addr;
 
-    addr.sin_family = AF_INET;
-    addr.sin_addr.s_addr = htonl(INADDR_ANY);
-    addr.sin_port = htons(PORT);
-    bin = bind(socket, (struct sockaddr *)&addr, sizeof(addr));
+	addr.sin_family = AF_INET;
+	addr.sin_addr.s_addr = htonl(INADDR_ANY);
+	addr.sin_port = htons(PORT);
+	bin = bind(socket, (struct sockaddr *)&addr, sizeof(addr));
 
-    return (bin);
+	return (bin);
 }
 
 /**
@@ -31,21 +37,21 @@ int bind_socket(int socket)
  */
 int main(void)
 {
-    int socket_fd;
+	int socket_fd;
 
-    socket_fd = socket(AF_INET, SOCK_STREAM, 0);
+	socket_fd = socket(AF_INET, SOCK_STREAM, 0);
 
-    if (socket_fd == -1)
-        print_error_and_exit("socket");
+	if (socket_fd == -1)
+		print_error_and_exit("socket");
 
-    if (bind_socket(socket_fd) == -1)
-        print_error_and_exit("bind");
+	if (bind_socket(socket_fd) == -1)
+		print_error_and_exit("bind");
 
-    if (listen(socket_fd, 1) == -1)
-        print_error_and_exit("listen");
+	if (listen(socket_fd, 1) == -1)
+		print_error_and_exit("listen");
 
-    printf("Server listening on port %d\n", PORT);
-    /* hangs program indefinitely until a signal is recieved */
-    pause();
-    return (EXIT_SUCCESS);
+	printf("Server listening on port %d\n", PORT);
+	/* hangs program indefinitely until a signal is recieved */
+	pause();
+	return (EXIT_SUCCESS);
 }
