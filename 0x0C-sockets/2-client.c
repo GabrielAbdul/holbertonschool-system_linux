@@ -18,7 +18,7 @@ int main(int ac, char **av)
 		printf("Usage: %s <host> <port>", av[0]);
 		return (EXIT_FAILURE);
 	}
-	host = strcmp(av[1], "localhost") ==  ? "127.0.0.1" : "localhost";
+	host = strcmp(av[1], "localhost") == 0 ? "127.0.0.1" : "localhost";
 	port = atoi(av[2]);
 
 	socket_fd = socket(AF_INET, SOCK_STREAM, 0);
