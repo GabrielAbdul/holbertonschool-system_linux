@@ -7,8 +7,8 @@
  */
 int print_error_and_exit(char *str)
 {
-    printf("%s: %s", str, strerror(errno));
-    return (EXIT_FAILURE);
+	printf("%s: %s", str, strerror(errno));
+	return (EXIT_FAILURE);
 }
 
 /**
@@ -18,14 +18,19 @@ int print_error_and_exit(char *str)
  */
 int recieve_message_from_socket(int sockfd)
 {
-    char message[BYTES_READ];
+	ssize_t bytes;
+	char message[BYTES_READ];
 
-    if (recv(sockfd, message, BYTES_READ, 0) == -1)
-        return (EXIT_FAILURE);
+	bytes = recv(sockfd, message, BYTES_READ, 0);
 
-    printf("Message recieved: \"%s\"\n", message);
+	if (bytes > 0)
+	{
+		message[bytes] = 0;
+		printf("Message recieved: \"%s\"\n", message);
+	}
 
-    return (EXIT_SUCCESS);
+	close(sockfd);
+	return (EXIT_SUCCESS);
 
 }
 
@@ -37,18 +42,19 @@ int recieve_message_from_socket(int sockfd)
  */
 int accept_socket(int socket)
 {
-    int new_socket;
-    struct sockaddr_in address;
-    socklen_t address_len;
+	int new_socket;
+	struct sockaddr_in address;
+	socklen_t address_len;
 
-    address_len = sizeof(address);
-    new_socket = accept(socket, (struct sockaddr *)&address, (socklen_t *)&address_len);
+	address_len = sizeof(address);
+	new_socket = accept(socket,
+			(struct sockaddr *)&address, (socklen_t *)&address_len);
 
-    if (new_socket == -1)
-        print_error_and_exit("accept");
+	if (new_socket == -1)
+		print_error_and_exit("accept");
 
-    printf("Client connected: %s\n", inet_ntoa(address.sin_addr));
-    return (new_socket);
+	printf("Client connected: %s\n", inet_ntoa(address.sin_addr));
+	return (new_socket);
 }
 
 /**
@@ -58,46 +64,47 @@ int accept_socket(int socket)
  */
 int bind_socket(int socket)
 {
-    int bin;
-    struct sockaddr_in addr;
+	int bin;
+	struct sockaddr_in addr;
 
-    addr.sin_family = AF_INET;
-    addr.sin_addr.s_addr = htonl(INADDR_ANY);
-    addr.sin_port = htons(PORT);
-    bin = bind(socket, (struct sockaddr *)&addr, sizeof(addr));
+	addr.sin_family = AF_INET;
+	addr.sin_addr.s_addr = htonl(INADDR_ANY);
+	addr.sin_port = htons(PORT);
+	bin = bind(socket, (struct sockaddr *)&addr, sizeof(addr));
 
-    if (bin == -1)
-        print_error_and_exit("bind");
+	if (bin == -1)
+		print_error_and_exit("bind");
 
-    return (bin);
+	return (bin);
 }
 
 /**
  * main - opens an IPv4/TCP socket, and listens to traffic on port 12345
+ * Return: int
  */
 int main(void)
 {
-    int socket_fd, socket_accepted;
+	int socket_fd, socket_accepted;
 
-    socket_fd = socket(AF_INET, SOCK_STREAM, 0);
+	socket_fd = socket(AF_INET, SOCK_STREAM, 0);
 
-    if (socket_fd == -1)
-        print_error_and_exit("socket");
+	if (socket_fd == -1)
+		print_error_and_exit("socket");
 
-    bind_socket(socket_fd);
+	bind_socket(socket_fd);
 
-    if (listen(socket_fd, 1) == -1)
-        print_error_and_exit("listen");
+	if (listen(socket_fd, 1) == -1)
+		print_error_and_exit("listen");
 
-    printf("Server listening on port %d\n", PORT);
+	printf("Server listening on port %d\n", PORT);
 
-    socket_accepted = accept_socket(socket_fd);
+	socket_accepted = accept_socket(socket_fd);
 
-    if (recieve_message_from_socket(socket_accepted) == -1)
-        print_error_and_exit("recv");
+	if (recieve_message_from_socket(socket_accepted) == -1)
+		print_error_and_exit("recv");
 
-    close(socket_fd);
-    close(socket_accepted);
-    return (EXIT_SUCCESS);
+	close(socket_fd);
+	close(socket_accepted);
+	return (EXIT_SUCCESS);
 
 }
